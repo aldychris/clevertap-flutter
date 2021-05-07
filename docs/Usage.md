@@ -1,2 +1,2 @@
-## Usage Example
-s
+# CleverTap Flutter Usage Example
+
