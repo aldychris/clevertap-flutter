@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:flutter/services.dart';
 
@@ -25,30 +24,30 @@ typedef void CleverTapPushClickedPayloadReceivedHandler(
 
 class CleverTapPlugin {
   CleverTapInAppNotificationDismissedHandler
-      cleverTapInAppNotificationDismissedHandler;
+  cleverTapInAppNotificationDismissedHandler;
   CleverTapInAppNotificationButtonClickedHandler
-      cleverTapInAppNotificationButtonClickedHandler;
+  cleverTapInAppNotificationButtonClickedHandler;
   CleverTapProfileDidInitializeHandler cleverTapProfileDidInitializeHandler;
   CleverTapProfileSyncHandler cleverTapProfileSyncHandler;
   CleverTapInboxDidInitializeHandler cleverTapInboxDidInitializeHandler;
   CleverTapInboxMessagesDidUpdateHandler cleverTapInboxMessagesDidUpdateHandler;
   CleverTapInboxNotificationButtonClickedHandler
-      cleverTapInboxNotificationButtonClickedHandler;
+  cleverTapInboxNotificationButtonClickedHandler;
   CleverTapExperimentsDidUpdateHandler cleverTapExperimentsDidUpdateHandler;
   CleverTapDisplayUnitsLoadedHandler cleverTapDisplayUnitsLoadedHandler;
   CleverTapFeatureFlagUpdatedHandler cleverTapFeatureFlagUpdatedHandler;
   CleverTapProductConfigInitializedHandler
-      cleverTapProductConfigInitializedHandler;
+  cleverTapProductConfigInitializedHandler;
   CleverTapProductConfigFetchedHandler cleverTapProductConfigFetchedHandler;
   CleverTapProductConfigActivatedHandler cleverTapProductConfigActivatedHandler;
   CleverTapPushAmpPayloadReceivedHandler cleverTapPushAmpPayloadReceivedHandler;
   CleverTapPushClickedPayloadReceivedHandler
-      cleverTapPushClickedPayloadReceivedHandler;
+  cleverTapPushClickedPayloadReceivedHandler;
 
   static const MethodChannel _channel = const MethodChannel('clevertap_plugin');
 
   static final CleverTapPlugin _clevertapPlugin =
-      new CleverTapPlugin._internal();
+  new CleverTapPlugin._internal();
 
   factory CleverTapPlugin() => _clevertapPlugin;
 
@@ -119,17 +118,17 @@ class CleverTapPlugin {
 
   /// Define a method to handle inApp notification dismissed
   void setCleverTapInAppNotificationDismissedHandler(
-          CleverTapInAppNotificationDismissedHandler handler) =>
+      CleverTapInAppNotificationDismissedHandler handler) =>
       cleverTapInAppNotificationDismissedHandler = handler;
 
   /// Define a method to handle inApp notification button clicked
   void setCleverTapInAppNotificationButtonClickedHandler(
-          CleverTapInAppNotificationButtonClickedHandler handler) =>
+      CleverTapInAppNotificationButtonClickedHandler handler) =>
       cleverTapInAppNotificationButtonClickedHandler = handler;
 
   /// Define a method to handle profile initialization
   void setCleverTapProfileDidInitializeHandler(
-          CleverTapProfileDidInitializeHandler handler) =>
+      CleverTapProfileDidInitializeHandler handler) =>
       cleverTapProfileDidInitializeHandler = handler;
 
   /// Define a method to handle profile sync
@@ -138,57 +137,57 @@ class CleverTapPlugin {
 
   /// Define a method to handle inbox initialization
   void setCleverTapInboxDidInitializeHandler(
-          CleverTapInboxDidInitializeHandler handler) =>
+      CleverTapInboxDidInitializeHandler handler) =>
       cleverTapInboxDidInitializeHandler = handler;
 
   /// Define a method to handle inbox update
   void setCleverTapInboxMessagesDidUpdateHandler(
-          CleverTapInboxMessagesDidUpdateHandler handler) =>
+      CleverTapInboxMessagesDidUpdateHandler handler) =>
       cleverTapInboxMessagesDidUpdateHandler = handler;
 
   /// Define a method to handle inbox notification button clicked
   void setCleverTapInboxNotificationButtonClickedHandler(
-          CleverTapInboxNotificationButtonClickedHandler handler) =>
+      CleverTapInboxNotificationButtonClickedHandler handler) =>
       cleverTapInboxNotificationButtonClickedHandler = handler;
 
   /// Define a method to handle dynamic variable experiments update
   void setCleverTapExperimentsDidUpdateHandler(
-          CleverTapExperimentsDidUpdateHandler handler) =>
+      CleverTapExperimentsDidUpdateHandler handler) =>
       cleverTapExperimentsDidUpdateHandler = handler;
 
   /// Define a method to handle Native Display Unit updates
   void setCleverTapDisplayUnitsLoadedHandler(
-          CleverTapDisplayUnitsLoadedHandler handler) =>
+      CleverTapDisplayUnitsLoadedHandler handler) =>
       cleverTapDisplayUnitsLoadedHandler = handler;
 
   /// Define a method to handle Feature Flag updates
   void setCleverTapFeatureFlagUpdatedHandler(
-          CleverTapFeatureFlagUpdatedHandler handler) =>
+      CleverTapFeatureFlagUpdatedHandler handler) =>
       cleverTapFeatureFlagUpdatedHandler = handler;
 
   /// Define a method to handle Product config initialization
   void setCleverTapProductConfigInitializedHandler(
-          CleverTapProductConfigInitializedHandler handler) =>
+      CleverTapProductConfigInitializedHandler handler) =>
       cleverTapProductConfigInitializedHandler = handler;
 
   /// Define a method to handle Product config fetch updates
   void setCleverTapProductConfigFetchedHandler(
-          CleverTapProductConfigFetchedHandler handler) =>
+      CleverTapProductConfigFetchedHandler handler) =>
       cleverTapProductConfigFetchedHandler = handler;
 
   /// Define a method to handle Product config activation updates
   void setCleverTapProductConfigActivatedHandler(
-          CleverTapProductConfigActivatedHandler handler) =>
+      CleverTapProductConfigActivatedHandler handler) =>
       cleverTapProductConfigActivatedHandler = handler;
 
   /// Define a method to handle Push Amplification payload
   void setCleverTapPushAmpPayloadReceivedHandler(
-          CleverTapPushAmpPayloadReceivedHandler handler) =>
+      CleverTapPushAmpPayloadReceivedHandler handler) =>
       cleverTapPushAmpPayloadReceivedHandler = handler;
 
   /// Define a method to handle Push Clicked payload
   void setCleverTapPushClickedPayloadReceivedHandler(
-          CleverTapPushClickedPayloadReceivedHandler handler) =>
+      CleverTapPushClickedPayloadReceivedHandler handler) =>
       cleverTapPushClickedPayloadReceivedHandler = handler;
 
   /// Sets debug level to show logs on Android Studio/Xcode console
@@ -198,16 +197,12 @@ class CleverTapPlugin {
 
   /// Only for iOS - Registers the application to receive push notifications
   static Future<void> registerForPush() async {
-    if (Platform.isIOS) {
-      return await _channel.invokeMethod('registerForPush', {});
-    }
+    return await _channel.invokeMethod('registerForPush', {});
   }
 
   /// Set the FCM Token for Push Notifications
   static Future<void> setPushToken(String value) async {
-    if (Platform.isAndroid) {
-      return await _channel.invokeMethod('setPushToken', {'token': value});
-    }
+    return await _channel.invokeMethod('setPushToken', {'token': value});
   }
 
   /// Set the Xiaomi Token for Push Notifications
@@ -410,7 +405,7 @@ class CleverTapPlugin {
   //  and last time timestamp of the event.
   static Future<Map<String, dynamic>> eventGetDetail(String eventName) async {
     Map<dynamic, dynamic> response =
-        await _channel.invokeMethod('eventGetDetail', {'eventName': eventName});
+    await _channel.invokeMethod('eventGetDetail', {'eventName': eventName});
     return response.cast<String, dynamic>();
   }
 
@@ -572,7 +567,7 @@ class CleverTapPlugin {
   /// Returns a Map of UTMDetail object which consists of UTM parameters like source, medium & campaign
   static Future<Map<String, dynamic>> sessionGetUTMDetails() async {
     Map<dynamic, dynamic> response =
-        await _channel.invokeMethod('sessionGetUTMDetails', {});
+    await _channel.invokeMethod('sessionGetUTMDetails', {});
     return response.cast<String, dynamic>();
   }
 
@@ -816,7 +811,7 @@ class CleverTapPlugin {
   ///Returns Display unit info as a Map
   static Future<Map<String, dynamic>> getDisplayUnitForId(String unitId) async {
     Map<dynamic, dynamic> response =
-        await _channel.invokeMethod('getDisplayUnitForId', {'unitId': unitId});
+    await _channel.invokeMethod('getDisplayUnitForId', {'unitId': unitId});
     return response.cast<String, dynamic>();
   }
 
