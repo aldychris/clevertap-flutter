@@ -1,11 +1,12 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/services.dart';
 
 typedef void CleverTapInAppNotificationDismissedHandler(
     Map<String, dynamic> mapList);
 typedef void CleverTapInAppNotificationButtonClickedHandler(
-    Map<String, String> mapList);
+    Map<String, dynamic> mapList);
 typedef void CleverTapProfileDidInitializeHandler();
 typedef void CleverTapProfileSyncHandler(Map<String, dynamic> map);
 typedef void CleverTapInboxDidInitializeHandler();
@@ -64,8 +65,9 @@ class CleverTapPlugin {
             args.cast<String, dynamic>());
         break;
       case "onInAppButtonClick":
-        Map<String, String> args = call.arguments;
-        cleverTapInAppNotificationButtonClickedHandler(args);
+        Map<dynamic, dynamic> args = call.arguments;
+        cleverTapInAppNotificationButtonClickedHandler(
+            args.cast<String, dynamic>());
         break;
       case "profileDidInitialize":
         cleverTapProfileDidInitializeHandler();
@@ -196,12 +198,16 @@ class CleverTapPlugin {
 
   /// Only for iOS - Registers the application to receive push notifications
   static Future<void> registerForPush() async {
-    return await _channel.invokeMethod('registerForPush', {});
+    if (Platform.isIOS) {
+      return await _channel.invokeMethod('registerForPush', {});
+    }
   }
 
   /// Set the FCM Token for Push Notifications
   static Future<void> setPushToken(String value) async {
-    return await _channel.invokeMethod('setPushToken', {'token': value});
+    if (Platform.isAndroid) {
+      return await _channel.invokeMethod('setPushToken', {'token': value});
+    }
   }
 
   /// Set the Xiaomi Token for Push Notifications
